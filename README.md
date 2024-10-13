@@ -69,7 +69,13 @@ yarn workspace @app/base-docs dev
 yarn workspace @app/bridge dev
 ```
 
-## Adding or updating a project on the Ecosystem page
+## Contribution
+
+We welcome contributions to Base! To contribute, please see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Other
+
+### Adding or updating a project on the Ecosystem page
 
 If you're a builder who wants to add or update your project on the Base Ecosystem page, follow these steps:
 
@@ -80,7 +86,3 @@ If you're a builder who wants to add or update your project on the Base Ecosyste
 5. Our automated system will detect your ecosystem-related changes and update the PR description with the appropriate template. Please fill out all required information in the template.
 
 Note: Ensure you have all required information ready before starting your update. This includes project details, links, descriptions, and any necessary assets.
-
-## Contribution
-
-We welcome contributions to Base! To contribute, please see [CONTRIBUTING.md](CONTRIBUTING.md).
