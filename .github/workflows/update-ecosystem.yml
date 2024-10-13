@@ -1,0 +1,27 @@
+name: Update Ecosystem Page
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'web/apps/web/src/data/ecosystem.json'
+      - 'web/apps/web/public/images/partners/**'
+
+jobs:
+  update-pr-template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update PR Description
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          template=$(cat .github/PULL_REQUEST_TEMPLATE/ecosystem-update.md)
+          current_body=$(gh pr view $PR_NUMBER --json body -q .body)
+          new_body="${template}
+
+          ---
+
+          ${current_body}"
+          gh pr edit $PR_NUMBER --body "${new_body}"
