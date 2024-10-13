@@ -3,25 +3,25 @@ name: Update Ecosystem Page
 on:
   pull_request:
     types: [opened, synchronize]
-    paths:
-      - 'web/apps/web/src/data/ecosystem.json'
-      - 'web/apps/web/public/images/partners/**'
 
 jobs:
   update-pr-template:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Check for ecosystem changes
+        id: check_files
+        run: |
+          if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q -E "web/apps/web/src/data/ecosystem.json|web/apps/web/public/images/partners/"; then
+            echo "ecosystem_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "ecosystem_changed=false" >> $GITHUB_OUTPUT
+          fi
       - name: Update PR Description
+        if: steps.check_files.outputs.ecosystem_changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          template=$(cat .github/PULL_REQUEST_TEMPLATE/ecosystem-update.md)
-          current_body=$(gh pr view $PR_NUMBER --json body -q .body)
-          new_body="${template}
-
-          ---
-
-          ${current_body}"
-          gh pr edit $PR_NUMBER --body "${new_body}"
+          ecosystem_template=$(cat .github/PULL_REQUEST_TEMPLATE/ecosystem-update.md)
+          gh pr edit $PR_NUMBER --body "${ecosystem_template}"
