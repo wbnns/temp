@@ -1,0 +1,11 @@
+@media (max-width: 996px) {
+  .colorModeToggle {
+    display: none;
+  }
+}
+
+@media (max-width: 996px) {
+  .walletConnectButton {
+    display: none;
+  }
+}
