@@ -63,7 +63,7 @@ const links: TopNavigationLink[] = [
       },
       {
         name: 'Events',
-        href: 'https://lu.ma/BaseMeetups',
+        href: 'https://lu.ma/BaseEvents',
       },
     ],
   },
